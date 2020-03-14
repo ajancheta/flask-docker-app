@@ -1,6 +1,19 @@
 from flask import Flask, render_template
 import os
 import random
+from ddtrace import patch_all
+patch_all()
+
+from ddtrace import config
+
+# Enable distributed tracing
+config.flask['distributed_tracing_enabled'] = True
+
+# Override service name
+config.flask['service_name'] = 'custom-service-name'
+
+# Report 401, and 403 responses as errors
+config.flask['extra_error_codes'] = [401, 403]
 
 app = Flask(__name__)
 

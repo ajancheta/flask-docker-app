@@ -4,13 +4,16 @@ FROM python:3
 WORKDIR /usr/src/app
 
 # copy all the files to the container
-COPY . .
+COPY . . 
 
 # install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # tell the port number the container should expose
 EXPOSE 5000
+
+LABEL "com.datadoghq.ad.logs"='[<LOGS_CONFIG>]'
+
 
 # run the command
 CMD ["python", "./app.py"]
